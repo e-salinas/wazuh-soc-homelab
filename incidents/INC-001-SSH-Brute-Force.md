@@ -6,9 +6,9 @@
 |-------|-------|
 | **Incident ID** | INC-001 |
 | **Severity** | 🔴 **HIGH** |
-| **Classification** | True Positive - Confirmed Attack |
-| **Status** | ✅ CONTAINED |
-| **Analyst** | Esteban (SOC Analyst) |
+| **Classification** | True positive — controlled SSH password-guessing simulation |
+| **Status** | Investigation documented; manual firewall deny rule configured |
+| **Analyst** | Esteban Salinas — lab author |
 | **MITRE ATT&CK** | [T1110 - Brute Force](https://attack.mitre.org/techniques/T1110/) |
 
 ---
@@ -29,7 +29,7 @@ I generated a controlled SSH password-guessing simulation from the Kali Linux VM
 | **Target Username** | admin |
 | **Attack Tool** | Hydra v9.5 (Password Cracking Tool) |
 | **Observed Event Counts** | 90 events in the authentication-failure-filtered view; 94 total hits in a separate captured view |
-| **Authentication Result** | ✅ **FAILED** - No credentials compromised |
+| **Authentication Evidence** | Captured alerts show authentication failures, including attempts using a nonexistent username |
 
 These counts reflect the filters and time windows shown in each screenshot. They are dashboard event counts, not a verified count of password guesses or unique login attempts.
 
@@ -88,12 +88,13 @@ These counts reflect the filters and time windows shown in each screenshot. They
 - Analyzed alert details to identify source IP (10.0.0.34)
 - Confirmed target system (ubuntu-desktop) and service (SSH)
 - Identified attack pattern: rapid successive login attempts with common passwords
-- Verified no successful authentication occurred
-
+- Reviewed the captured authentication failures, including rule 5710 for a nonexistent username
+  
 ### 3. Classification
-- Classified as **TRUE POSITIVE** - confirmed malicious activity
-- Attack matched MITRE ATT&CK technique T1110 (Brute Force)
-- Volume and velocity of attempts indicated automated tool usage
+- Classified the alerts as true positives for the controlled password-guessing activity
+- Correlated the source IP and authentication events with the known lab simulation
+- Mapped the simulated behavior to MITRE ATT&CK T1110.001 — Password Guessing
+- Distinguished detection of the activity from proof of successful access or verified prevention
 
 ### 4. Containment
 Implemented firewall block on target system:
@@ -109,27 +110,25 @@ sudo ufw status
 *UFW firewall rule blocking attacker IP*
 
 ### 5. Verification
-- Confirmed firewall rule active via `ufw status`
-- Verified subsequent connection attempts from attacker IP were blocked
-- Continued monitoring for any related suspicious activity
-
+- Confirmed UFW was active using `ufw status`
+- Confirmed a deny rule for the simulation source IP, `10.0.0.34`, appeared in the firewall configuration
+- The retained evidence demonstrates rule configuration; a post-block connection test is not included
+  
 ---
 
-## Root Cause Analysis
+## Analysis of Observed Results
 
-### Attack Vector
-The attacker utilized Hydra, an automated password cracking tool, to perform a dictionary attack against the SSH service. The attack targeted the "admin" username with a wordlist of common passwords.
+### Simulation Activity
+Hydra generated controlled SSH password-guessing activity against the Ubuntu endpoint.
 
-### Why Detection Succeeded
-1. **Wazuh agent** was properly configured on the target system
-2. **SSH logging** was enabled and forwarded to SIEM
-3. **Correlation rules** detected the pattern of multiple failed authentications
-4. **Real-time alerting** enabled immediate analyst notification
+### Detection
+Wazuh recorded authentication-related events, including attempts using a nonexistent username and maximum authentication attempts being exceeded. I reviewed the source IP, target endpoint, and rule descriptions to investigate the activity.
 
-### Why Attack Failed
-1. **Strong password policy** - Target account password was not in attacker's wordlist
-2. **SSH rate limiting** - Built-in SSH protection kicked in after multiple failures
-3. **Rapid containment** - Firewall block prevented continued attempts
+### Authentication Outcome
+The captured alerts demonstrate failed authentication attempts. They do not establish that password strength caused the failures or that SSH applied a persistent source-IP block.
+
+### Manual Response
+I configured a UFW deny rule for the Kali VM's source IP and confirmed that the firewall was active and the rule was present.
 
 ---
 
@@ -155,11 +154,12 @@ The attacker utilized Hydra, an automated password cracking tool, to perform a d
 
 ## Affected Assets
 
-| Asset | Impact | Status |
-|-------|--------|--------|
-| ubuntu-desktop (10.0.0.18) | Targeted - No compromise | ✅ Secured |
-| SSH Service | Attack target | ✅ Operational |
-| Admin account | Targeted username | ✅ Not compromised |
+| Asset | Role | Observed Result |
+|-------|------|-----------------|
+| ubuntu-desktop (10.0.0.18) | Monitored SSH endpoint | Authentication-failure alerts recorded |
+| Kali Linux (10.0.0.34) | Simulation source | Source IP identified in captured alerts |
+| Username `admin` | Attempted login name | Captured rule 5710 events report a nonexistent user |
+| UFW on ubuntu-desktop | Manual response control | Active deny rule documented |
 
 ---
 
@@ -174,7 +174,7 @@ The attacker utilized Hydra, an automated password cracking tool, to perform a d
 
 | Role | Name | Date |
 |------|------|------|
-| **Investigating Analyst** | Steve | December 6, 2025 |
+| **Investigating Analyst** | Esteban Salinas | December 6, 2025 |
 | **Report Completed** | December 6, 2025 | |
 
 ---
