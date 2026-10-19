@@ -5,7 +5,6 @@
 | Field | Value |
 |-------|-------|
 | **Incident ID** | INC-001 |
-| **Date/Time Detected** | December 6, 2025 @ 15:49:49 UTC |
 | **Severity** | 🔴 **HIGH** |
 | **Classification** | True Positive - Confirmed Attack |
 | **Status** | ✅ CONTAINED |
@@ -16,7 +15,7 @@
 
 ## Executive Summary
 
-A brute force attack targeting SSH services was detected on the ubuntu-desktop endpoint. The attack originated from an internal IP address (10.0.0.34) and attempted to authenticate using the username "admin" with multiple password combinations. The attack was detected in real-time by Wazuh SIEM, investigated, and contained through firewall blocking within approximately 10 minutes. No successful authentication occurred.
+I generated a controlled SSH password-guessing simulation from the Kali Linux VM (10.0.0.34) against the ubuntu-desktop endpoint (10.0.0.18). I investigated the resulting Wazuh authentication alerts, identified the source IP and attempted username, and configured a manual UFW deny rule on the target. The retained screenshots document the authentication alerts and active firewall rule.
 
 ---
 
@@ -34,15 +33,13 @@ A brute force attack targeting SSH services was detected on the ubuntu-desktop e
 
 ---
 
-## Incident Timeline
+## Investigation and Response Sequence
 
-| Timestamp | Event |
-|-----------|-------|
-| 15:52:35 | Attack initiated - Hydra brute force started from 10.0.0.34 |
-| 15:49:49 | First alert generated in Wazuh SIEM (Rules 5758, 5710) |
-| 15:53:14 | Attack terminated - SSH rate limiting blocked further attempts |
-| ~15:55:00 | Investigation completed - Attack classified as True Positive |
-| ~16:00:00 | Containment executed - UFW firewall rule added to block 10.0.0.34 |
+1. Generated controlled SSH password-guessing activity from the Kali VM.
+2. Reviewed authentication-failure alerts in Wazuh.
+3. Identified the source IP, target endpoint, and attempted username.
+4. Reviewed the triggered rules and authentication activity.
+5. Configured a UFW deny rule for the source IP and confirmed the rule was active.
 
 ---
 
@@ -117,16 +114,6 @@ sudo ufw status
 - Confirmed firewall rule active via `ufw status`
 - Verified subsequent connection attempts from attacker IP were blocked
 - Continued monitoring for any related suspicious activity
-
----
-
-## Response Metrics
-
-| Metric | Value | Target | Status |
-|--------|-------|--------|--------|
-| **Mean Time to Detect (MTTD)** | < 1 minute | < 5 min | ✅ Exceeded |
-| **Mean Time to Respond (MTTR)** | ~10 minutes | < 15 min | ✅ Met |
-| **Attack Success** | Prevented | N/A | ✅ No compromise |
 
 ---
 
