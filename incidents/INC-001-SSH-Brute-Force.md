@@ -28,8 +28,10 @@ I generated a controlled SSH password-guessing simulation from the Kali Linux VM
 | **Target Service** | SSH (Port 22) |
 | **Target Username** | admin |
 | **Attack Tool** | Hydra v9.5 (Password Cracking Tool) |
-| **Total Alerts Generated** | 90 security events |
+| **Observed Event Counts** | 90 events in the authentication-failure-filtered view; 94 total hits in a separate captured view |
 | **Authentication Result** | ✅ **FAILED** - No credentials compromised |
+
+These counts reflect the filters and time windows shown in each screenshot. They are dashboard event counts, not a verified count of password guesses or unique login attempts.
 
 ---
 
@@ -62,19 +64,16 @@ I generated a controlled SSH password-guessing simulation from the Kali Linux VM
 ### Evidence Screenshots
 
 #### Alert Overview
-<!-- Add screenshot of Wazuh dashboard showing 94 alerts -->
 ![Alert Overview](../screenshots/ssh-brute-force/01-alerts-overview.png)
-*Wazuh Security Events showing 94 authentication failure alerts*
+*Filtered Wazuh dashboard showing 90 authentication-failure events.*
 
 #### Alert Details
-<!-- Add screenshot of expanded alert showing source IP and rule details -->
 ![Alert Details](../screenshots/ssh-brute-force/02-alert-details.png)
 *Detailed alert view showing attacker IP (10.0.0.34), rule.mitre.id (T1110), and full log entry*
 
-#### Attack Timeline
-<!-- Add screenshot showing the histogram/timeline of events -->
+#### Event Distribution
 ![Timeline](../screenshots/ssh-brute-force/03-attack-timeline.png)
-*Event timeline showing concentration of attacks between 15:49-15:50*
+*A separate Wazuh view showing 94 total hits and a concentrated burst of events.*
 
 ---
 
@@ -106,7 +105,6 @@ sudo ufw status
 ```
 
 #### Containment Evidence
-<!-- Add screenshot of UFW status showing the deny rule -->
 ![UFW Block](../screenshots/ssh-brute-force/04-containment-ufw.png)
 *UFW firewall rule blocking attacker IP*
 
