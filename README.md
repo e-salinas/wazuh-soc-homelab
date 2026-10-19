@@ -142,11 +142,6 @@ Step-by-step Tier 1 procedures for triaging and escalating common security incid
 
 ## Screenshots
 
-### Lab Overview
-
-![Wazuh Dashboard Home](screenshots/wazuh-dashboard-home.png)
-*Wazuh Dashboard showing monitored agents and security events*
-
 ---
 
 ### Scenario 1: SSH Brute Force Attack
