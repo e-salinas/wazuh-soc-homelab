@@ -106,7 +106,7 @@ Detailed documentation of each security incident including timeline, investigati
 
 | Incident ID | Title | Severity | Classification | Link |
 |-------------|-------|----------|----------------|------|
-| INC-001 | SSH Brute Force Attack | 🔴 HIGH | True Positive | [View Report](incidents/INC-001-SSH-Brute-Force.md) |
+| INC-001 | SSH Brute Force Attack | 🔴 HIGH | True positive — controlled simulation | [View Report](incidents/INC-001-SSH-Brute-Force.md) |
 | INC-002 | Test File Creation and Modification (FIM)) | 🟠 MEDIUM | Expected test activity | [View Report](incidents/INC-002-Malware-Detection.md) |
 
 ---
@@ -149,22 +149,22 @@ Step-by-step Tier 1 procedures for triaging and escalating common security incid
 #### Attack Detection
 
 ![SSH Brute Force Alerts](screenshots/ssh-brute-force/01-alerts-overview.png)
-*Wazuh detecting 94 authentication failure events from brute force attack*
+*Filtered Wazuh dashboard showing 90 authentication-failure events.*
 
 #### Alert Details
 
 ![Alert Details](screenshots/ssh-brute-force/02-alert-details.png)
 *Detailed view showing attacker IP, target system, and MITRE ATT&CK mapping (T1110)*
 
-#### Attack Timeline
+#### Event Distribution
 
 ![Attack Timeline](screenshots/ssh-brute-force/03-attack-timeline.png)
-*Timeline showing burst of authentication attempts during attack window*
+*A separate Wazuh view showing 94 total hits and a concentrated burst of events.*
 
 #### Containment
 
 ![Firewall Block](screenshots/ssh-brute-force/04-containment-ufw.png)
-*UFW firewall rule blocking attacker IP address*
+*UFW status showing an active deny rule for the simulation source IP.*
 
 ---
 
@@ -186,20 +186,13 @@ Step-by-step Tier 1 procedures for triaging and escalating common security incid
 *Rule 550 reporting changes to the test file's inode and modification time.*
 
 
-
-
 ## Lessons Learned
 
-### Technical Insights
-1. **Real-time detection is critical** - Wazuh detected the brute force attack within seconds, enabling rapid response
-2. **Log correlation reveals patterns** - Multiple rule IDs (5758, 5710, 2502) together confirmed automated attack vs. user error
-3. **Defense in depth works** - SSH rate limiting + SIEM detection + firewall blocking created multiple defensive layers
-4. **FIM provides early warning** - File Integrity Monitoring detected suspicious files immediately upon creation, enabling rapid triage
-
-### Process Improvements
-1. **Document as you go** - Capturing timestamps during the incident made report writing much easier
-2. **Playbooks save time** - Having a documented procedure reduced response time significantly
-3. **Collect hashes immediately** - Gathering MD5/SHA256 hashes are used to check threat intelligence quickly
+- **Dashboard counts need context.** Filters and time windows affect event totals. An alert count is not automatically a count of login attempts.
+- **Alerts need investigation.** Authentication failures and file changes provide evidence, but their meaning depends on the surrounding activity.
+- **Read the underlying fields.** The FIM modification alert reported inode and modification-time changes; the alert title alone did not establish a content change.
+- **Configuration and verification are separate.** The firewall screenshot documents an active deny rule. A subsequent connection test would be needed to demonstrate its effect.
+- **Reports should match the evidence.** I distinguished observed results, simulated handoffs, and suggested improvements throughout the write-up.
 
 ---
 
