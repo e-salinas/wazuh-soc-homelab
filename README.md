@@ -25,13 +25,14 @@ All activity was performed in my personal lab. Incident classifications and esca
 
 ## Overview
 
-This project simulates a real-world Security Operations Center environment where I detect, investigate, and respond to various cyber attacks. The goal is to demonstrate practical SOC analyst skills including:
+This lab documents two security-monitoring exercises: investigating a controlled SSH password-guessing simulation and reviewing file-integrity alerts from test-file activity.
 
-- Real-time security event monitoring
-- Alert triage and classification
-- Incident investigation and documentation
-- Threat containment and remediation
-- Playbook development and execution
+Skills practiced:
+- Reviewing Linux security events in Wazuh
+- Identifying relevant alert fields and investigating event patterns
+- Collecting and organizing supporting evidence
+- Configuring a manual firewall deny rule
+- Writing investigation reports and reusable response playbooks
 
 ---
 
@@ -102,23 +103,23 @@ This project simulates a real-world Security Operations Center environment where
 
 ## Incident Reports
 
-Detailed documentation of each security incident including timeline, investigation steps, and escalation actions.
+Reports documenting each exercise, the observed evidence, investigation steps, and response actions or simulated handoffs.
 
 | Incident ID | Title | Severity | Classification | Link |
 |-------------|-------|----------|----------------|------|
 | INC-001 | SSH Brute Force Attack | 🔴 HIGH | True positive — controlled simulation | [View Report](incidents/INC-001-SSH-Brute-Force.md) |
-| INC-002 | Test File Creation and Modification (FIM)) | 🟠 MEDIUM | Expected test activity | [View Report](incidents/INC-002-Malware-Detection.md) |
+| INC-002 | Test File Creation and Modification (FIM) | 🟠 MEDIUM | Expected test activity | [View Report](incidents/INC-002-Malware-Detection.md) |
 
 ---
 
 ## Response Playbooks
 
-Step-by-step Tier 1 procedures for triaging and escalating common security incidents.
+Reusable guidance for investigating SSH authentication activity and file-integrity alerts.
 
 | Playbook ID | Title | Threat Type | Link |
 |-------------|-------|-------------|------|
 | PB-001 | SSH Brute Force Detection & Triage | Credential Attack | [View Playbook](playbooks/PB-001-SSH-Brute-Force.md) |
-| PB-002 | FIM / Suspicious File Response | File Integrity | [View Playbook](playbooks/PB-002-FIM-Malware-Detection.md) |
+| PB-002 | File Integrity Alert Investigation | File Integrity | [View Playbook](playbooks/PB-002-FIM-Malware-Detection.md) |
 
 ---
 
@@ -154,7 +155,7 @@ Step-by-step Tier 1 procedures for triaging and escalating common security incid
 #### Alert Details
 
 ![Alert Details](screenshots/ssh-brute-force/02-alert-details.png)
-*Detailed view showing attacker IP, target system, and MITRE ATT&CK mapping (T1110)*
+*Wazuh event list showing authentication-related rules, the monitored endpoint, and the simulation source IP where available.*
 
 #### Event Distribution
 
