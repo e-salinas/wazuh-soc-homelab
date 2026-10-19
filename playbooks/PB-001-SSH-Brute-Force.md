@@ -8,7 +8,7 @@
 | **Version** | 1.0 |
 | **Last Updated** | December 6, 2025 |
 | **Author** | Esteban |
-| **Threat Type** | SSH Brute Force / Credential Stuffing |
+| **Threat Type** | Suspected SSH password guessing |
 | **Severity** | 🔴 HIGH |
 | **MITRE ATT&CK** | [T1110 - Brute Force](https://attack.mitre.org/techniques/T1110/) |
 
@@ -29,13 +29,15 @@ Execute this playbook when you see these alerts in Wazuh SIEM:
 
 ## Step 1: Alert Triage
 
-**Quick Assessment:**
+Review the activity before assigning a classification:
 
-| Alert Volume | Likely Cause |
-|--------------|--------------|
-| 1-5 alerts | User typo / forgot password |
-| 10-50 alerts | Possible attack or lockout |
-| 50+ alerts | Likely automated attack |
+- Identify the affected endpoint and define the investigation time window.
+- Review the source IP, attempted usernames, frequency, and pattern of failures.
+- Check whether the source and activity match an approved test, administrative task, or reported login problem.
+- Look for related successful authentication events and other suspicious activity.
+- Record the dashboard filters and time window used for any event counts.
+
+High volume can support an investigation, but there is no universal alert-count threshold that proves an attack. Low-volume activity can also be suspicious.
 
 ---
 
@@ -75,24 +77,17 @@ data.srcip: [ATTACKER_IP] AND rule.id: 5715
 
 ## Step 4: Classification Decision
 
-Based on your investigation, classify the alert:
+Use the available evidence and operational context:
 
-### True Positive Indicators
-- High volume of alerts (50+)
-- Rapid attempts (multiple per second)
-- Common usernames targeted (admin, root, test, user)
-- Single source IP with many attempts
-- Pattern indicates automated tool
+| Finding | Action |
+|---------|--------|
+| Activity matches an authorized lab test | Document the detected behavior and identify it as a controlled simulation |
+| Failures match a verified user or application problem | Document the explanation and coordinate troubleshooting |
+| Pattern supports unauthorized password guessing | Document the evidence and follow the applicable escalation and containment procedure |
+| Successful login is associated with suspicious activity | Prioritize investigation and escalate according to the response procedure |
+| Evidence is insufficient | Keep the finding unresolved, document the gaps, and gather more context |
 
-### False Positive Indicators
-- Low volume (1-5 alerts)
-- Known user reported login issues
-- Help desk ticket matches timeframe
-- Legitimate service account activity
-
-IF True Positive → Block attack IP at firewall
-
-IF False Positive → Document and close
+An authentication failure can be accurately detected without representing malicious activity. Do not classify or block a source based only on alert volume.
 
 ---
 
