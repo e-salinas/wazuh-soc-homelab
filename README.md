@@ -15,7 +15,7 @@ All activity was performed in my personal lab. Incident classifications and esca
 - [Overview](#overview)
 - [Lab Architecture](#lab-architecture)
 - [Skills Demonstrated](#skills-demonstrated)
-- [Attack Scenarios](#attack-scenarios)
+- [Documented Lab Scenarios](#documented-lab-scenarios)
 - [Incident Reports](#incident-reports)
 - [Response Playbooks](#response-playbooks)
 - [Key Metrics](#key-metrics)
@@ -93,17 +93,12 @@ This project simulates a real-world Security Operations Center environment where
 
 ---
 
-## Attack Scenarios
+## Documented Lab Scenarios
 
-| # | Scenario | MITRE ATT&CK | Status | Incident Report |
-|---|----------|--------------|--------|-----------------|
-| 1 | SSH Brute Force | T1110 - Brute Force | ✅ Complete | [INC-001](incidents/INC-001-SSH-Brute-Force.md) |
-| 2 | Malware Detection (FIM) | T1565.001 - Stored Data Manipulation | ✅ Complete | [INC-002](incidents/INC-002-Malware-Detection.md) |
-| 3 | Privilege Escalation | T1078 - Valid Acounts | ✅ Complete | INC-003 |
-| 4 | Port Scanning | T1046 - Network Service Discovery | ⏳ Planned | INC-004 |
-| 5 | SQL Injection | T1190 - Exploit Public-Facing App | ⏳ Planned | INC-005 |
-| 6 | Suspicious Process | T1059 - Command and Scripting | ⏳ Planned | INC-006 |
-| 7 | Lateral Movement | T1021 - Remote Services | ⏳ Planned | INC-007 |
+| Scenario | What I practiced | Report |
+|----------|------------------|--------|
+| SSH brute-force simulation | Investigating authentication failures, identifying the source, and configuring a manual firewall block | [INC-001](incidents/INC-001-SSH-Brute-Force.md) |
+| File-integrity monitoring | Investigating test-file creation and modification alerts and collecting file metadata and hashes | [INC-002](incidents/INC-002-Malware-Detection.md) |
 
 ---
 
