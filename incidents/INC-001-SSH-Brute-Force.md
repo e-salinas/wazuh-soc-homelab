@@ -132,23 +132,20 @@ I configured a UFW deny rule for the Kali VM's source IP and confirmed that the 
 
 ---
 
-## Recommendations
+## Completed Response and Suggested Improvements
 
-### Immediate Actions
-1. ✅ **Completed** - Block attacker IP via firewall
-2. ⬜ Review all systems for similar attack patterns from same source
-3. ⬜ Verify no unauthorized access occurred on any system
+### Completed in This Exercise
+- Investigated the captured Wazuh authentication alerts.
+- Identified the simulation source IP and monitored endpoint.
+- Configured a manual UFW deny rule and confirmed it was active.
 
-### Short-term Improvements
-1. **Implement fail2ban** - Automatically block IPs after failed attempts
-2. **Disable password authentication** - Use SSH key-based authentication only
-3. **Configure Wazuh Active Response** - Automate IP blocking on detection
+### Suggested Improvements — Not Implemented in This Exercise
+- Test a new SSH connection from the blocked source to verify the firewall's effect.
+- Review SSH configuration and consider key-based authentication with password authentication disabled.
+- Evaluate automated blocking through fail2ban or Wazuh Active Response.
+- Define a repeatable search for successful and failed authentication events within a documented investigation window.
 
-### Long-term Recommendations
-1. **Network segmentation** - Limit lateral movement potential
-2. **Remove unnecessary accounts** - Audit and disable unused usernames like "admin"
-3. **Implement MFA** - Add multi-factor authentication for SSH access
-4. **Regular security assessments** - Conduct periodic penetration testing
+These are follow-up recommendations, not requirements for completing the documented scope of this lab.
 
 ---
 
