@@ -1,10 +1,12 @@
-# 🛡️ SOC Analyst Homelab - Wazuh SIEM
+# Wazuh SIEM Lab — SSH Monitoring and File Integrity Investigation
 
-Enterprise-grade Security Operations Center (SOC) homelab demonstrating real-time threat detection, incident response, and security monitoring using Wazuh SIEM.
+I built this lab to practice collecting Linux security events, investigating Wazuh alerts, and documenting findings and response actions.
 
-![Lab Status](https://img.shields.io/badge/Lab%20Status-Active-brightgreen)
-![Scenarios](https://img.shields.io/badge/Attack%20Scenarios-7-blue)
-![SIEM](https://img.shields.io/badge/SIEM-Wazuh%204.x-orange)
+The project covers two controlled exercises: an SSH brute-force simulation and file-integrity monitoring of test files. It includes two incident reports, two response playbooks, and supporting screenshots.
+
+The environment uses Wazuh on Ubuntu Server, monitored Ubuntu endpoints, and Kali Linux for the SSH exercise, running through UTM on two Apple Silicon Macs.
+
+All activity was performed in my personal lab. Incident classifications and escalation examples are part of the simulation.
 
 ---
 
