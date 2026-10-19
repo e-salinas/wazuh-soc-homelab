@@ -60,19 +60,23 @@ Click on an alert and document these fields:
 
 ---
 
-## Step 3: Check for Successful Login
+## Step 3: Review Related Authentication Activity
 
-Search for successful authentication from the same source IP:
+Set an explicit investigation time window and filter by the affected endpoint and source IP.
 
+Example filter for the original lab:
+```text
+agent.name: "ubuntu-desktop" AND data.srcip: "10.0.0.34"
 ```
-data.srcip: [ATTACKER_IP] AND rule.id: 5715
-```
 
-| Result | Action |
-|--------|--------|
-| **No successful login** | Continue to Step 4 |
-| **Successful login found** | **ESCALATE IMMEDIATELY** |
+Review the event descriptions and underlying logs for failed and successful authentication. Rule 5715 can help locate SSH authentication-success events where that rule is used, but do not rely on a single rule ID as a complete search.
 
+- Record the endpoint, source, time window, filters, and findings.
+- Correlate any successful login with the username and surrounding activity.
+- Investigate suspicious successful authentication promptly.
+- If no success is found, report “No successful authentication observed within the reviewed scope.”
+- If logging coverage is uncertain, document the gap.
+  
 ---
 
 ## Step 4: Classification Decision
@@ -101,7 +105,25 @@ Before escalating or closing, ensure you have:
 - [ ] Alert count recorded
 - [ ] Successful login check completed
 - [ ] Classification decision documented
+- [ ] Investigation time window and filters recorded
+- [ ] Logging gaps or unresolved questions documented
+- [ ] Any containment action and its authorization recorded
+- [ ] Configuration evidence distinguished from a test of its effect
 
+---
+
+## Containment and Verification
+
+For a personal lab, confirm the source IP belongs to the intended simulation system before changing firewall rules.
+
+In an organizational environment, follow the approved response procedure and confirm authorization before blocking a source. Consider shared addresses and legitimate access that could be affected.
+
+After an approved block:
+- Confirm the intended rule is active.
+- Test a new connection from the controlled source when authorized.
+- Check that required legitimate access still works.
+- Document the observed result and any limitations.
+  
 ---
 
 ## Quick Reference
@@ -118,7 +140,7 @@ data.srcip: 10.0.0.34
 # Filter by target system
 agent.name: ubuntu-desktop
 
-# Check for successful login (IMPORTANT)
+# Example SSH success rule; use with endpoint and time-window filters
 rule.id: 5715
 ```
 
