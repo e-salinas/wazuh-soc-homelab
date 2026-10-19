@@ -107,7 +107,7 @@ Detailed documentation of each security incident including timeline, investigati
 | Incident ID | Title | Severity | Classification | Link |
 |-------------|-------|----------|----------------|------|
 | INC-001 | SSH Brute Force Attack | 🔴 HIGH | True Positive | [View Report](incidents/INC-001-SSH-Brute-Force.md) |
-| INC-002 | Suspicious File Detection (FIM) | 🟠 MEDIUM | True Positive | [View Report](incidents/INC-002-Malware-Detection.md) |
+| INC-002 | Test File Creation and Modification (FIM)) | 🟠 MEDIUM | Expected test activity | [View Report](incidents/INC-002-Malware-Detection.md) |
 
 ---
 
@@ -118,7 +118,7 @@ Step-by-step Tier 1 procedures for triaging and escalating common security incid
 | Playbook ID | Title | Threat Type | Link |
 |-------------|-------|-------------|------|
 | PB-001 | SSH Brute Force Detection & Triage | Credential Attack | [View Playbook](playbooks/PB-001-SSH-Brute-Force.md) |
-| PB-002 | FIM / Suspicious File Response | Malware / File Integrity | [View Playbook](playbooks/PB-002-FIM-Malware-Detection.md) |
+| PB-002 | FIM / Suspicious File Response | File Integrity | [View Playbook](playbooks/PB-002-FIM-Malware-Detection.md) |
 
 ---
 
@@ -168,12 +168,12 @@ Step-by-step Tier 1 procedures for triaging and escalating common security incid
 
 ---
 
-### Scenario 2: Malware Detection (FIM)
+### Scenario 2: File Integrity Monitoring
 
 #### FIM Alert Overview
 
 ![FIM Alerts](screenshots/malware-detection/01-fim-alerts-overview.png)
-*Wazuh FIM detecting suspicious file added to /tmp directory*
+*Wazuh FIM alerts generated during controlled test-file activity in /tmp.*
 
 #### File Added Alert (Rule 554)
 
@@ -183,7 +183,7 @@ Step-by-step Tier 1 procedures for triaging and escalating common security incid
 #### File Modified Alert (Rule 550)
 
 ![File Modified Details](screenshots/malware-detection/03-fim-modified-details.png)
-*FIM detecting file integrity change*
+*Rule 550 reporting changes to the test file's inode and modification time.*
 
 
 
