@@ -14,11 +14,9 @@ All activity was performed in my personal lab. Incident classifications and esca
 
 - [Overview](#overview)
 - [Lab Architecture](#lab-architecture)
-- [Skills Demonstrated](#skills-demonstrated)
 - [Documented Lab Scenarios](#documented-lab-scenarios)
 - [Incident Reports](#incident-reports)
 - [Response Playbooks](#response-playbooks)
-- [Key Metrics](#key-metrics)
 - [Tools & Technologies](#tools--technologies)
 - [Screenshots](#screenshots)
 - [Lessons Learned](#lessons-learned)
@@ -126,11 +124,9 @@ Step-by-step Tier 1 procedures for triaging and escalating common security incid
 
 ## Tools & Technologies
 
-### Security Tools
-- **Wazuh 4.x** - SIEM, IDS, FIM, Vulnerability Detection
-- **Hydra** - Password cracking / brute force testing
-- **Nmap** - Network scanning and reconnaissance
-- **SQLmap** - SQL injection testing
+- **Wazuh 4.x** — Centralized security-event monitoring and file-integrity monitoring
+- **Hydra** — Controlled SSH password-guessing simulation
+- **UFW** — Manual firewall rule configuration on the monitored endpoint
 
 ### Infrastructure
 - **UTM** - Virtualization platform (macOS)
@@ -212,19 +208,8 @@ Step-by-step Tier 1 procedures for triaging and escalating common security incid
 
 ---
 
-## Future Enhancements
-
-- [ ] Configure Wazuh Active Response for automated IP blocking
-- [ ] Add Windows endpoint to lab environment
-- [ ] Implement threat intelligence feeds
-- [ ] Create custom Wazuh detection rules
-- [ ] Set up automated reporting
-
----
-
 ## Acknowledgments
 
 - [Wazuh Documentation](https://documentation.wazuh.com/)
 - [MITRE ATT&CK Framework](https://attack.mitre.org/)
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
