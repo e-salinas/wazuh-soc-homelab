@@ -51,8 +51,8 @@ These counts reflect the filters and time windows shown in each screenshot. They
 
 | Rule ID | Description | Level | Significance |
 |---------|-------------|-------|--------------|
-| 5758 | Maximum authentication attempts exceeded | 8 | Indicates brute force attack pattern |
-| 5710 | Attempt to login using a non-existent user | 5 | Attacker testing invalid usernames |
+| 5758 | Maximum authentication attempts exceeded | 8 | Authentication-attempt limit reached; review with surrounding events |
+| 5710 | Attempt to login using a non-existent user | 5 | Attempted authentication using a nonexistent username |
 | 2502 | User missed the password more than one time | 10 | Repeated failed authentication attempts |
 
 ### MITRE ATT&CK Mapping
@@ -69,7 +69,7 @@ These counts reflect the filters and time windows shown in each screenshot. They
 
 #### Alert Details
 ![Alert Details](../screenshots/ssh-brute-force/02-alert-details.png)
-*Detailed alert view showing attacker IP (10.0.0.34), rule.mitre.id (T1110), and full log entry*
+*Wazuh event list showing authentication-related rules, the monitored endpoint, and the simulation source IP where available.*
 
 #### Event Distribution
 ![Timeline](../screenshots/ssh-brute-force/03-attack-timeline.png)
@@ -107,7 +107,7 @@ sudo ufw status
 
 #### Containment Evidence
 ![UFW Block](../screenshots/ssh-brute-force/04-containment-ufw.png)
-*UFW firewall rule blocking attacker IP*
+*UFW status showing an active deny rule for the simulation source IP.*
 
 ### 5. Verification
 - Confirmed UFW was active using `ufw status`
