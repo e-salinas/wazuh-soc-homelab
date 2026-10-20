@@ -5,7 +5,7 @@
 | Field | Value |
 |-------|-------|
 | **Incident ID** | INC-001 |
-| **Severity** | 🔴 **HIGH** |
+| **Severity** | High — lab-assigned investigation priority |
 | **Classification** | True positive — controlled SSH password-guessing simulation |
 | **Status** | Investigation documented; manual firewall deny rule configured |
 | **Analyst** | Esteban Salinas — lab author |
