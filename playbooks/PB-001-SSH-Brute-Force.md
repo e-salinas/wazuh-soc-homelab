@@ -5,18 +5,20 @@
 | Field | Value |
 |-------|-------|
 | **Playbook ID** | PB-001 |
-| **Version** | 1.0 |
-| **Last Updated** | December 6, 2025 |
+| **Version** | 1.1 |
+| **Last Updated** | October 19, 2026 |
 | **Author** | Esteban |
 | **Threat Type** | Suspected SSH password guessing |
-| **Severity** | 🔴 HIGH |
+| **Severity** | High — lab-assigned investigation priority |
 | **MITRE ATT&CK** | [T1110 - Brute Force](https://attack.mitre.org/techniques/T1110/) |
+
+Reassess priority based on the affected asset, whether the activity is authorized, and evidence of successful access.
 
 ---
 
 ## Trigger
 
-Execute this playbook when you see these alerts in Wazuh SIEM:
+Use this playbook to review suspected SSH password guessing. The following rule references are examples; verify their descriptions and levels against the deployed Wazuh version.
 
 | Rule ID | Description | Level |
 |---------|-------------|-------|
@@ -169,6 +171,7 @@ rule.id: 5715
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0 | Dec 6, 2025 | Initial playbook |
+| 1.1 | Oct 19, 2026 | Revised contextual triage, authentication review, and containment verification |
 
 ---
 
